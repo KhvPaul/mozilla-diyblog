@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="margin-right: 20vw;">
+      <h1>Title: {{ blog.title }}</h1>
+        <p><strong>Post Date </strong> {{ blog.post_date }}</p>
+      <p><strong>Author:</strong> <a href="{% url 'blogger-detail' blog.author.id %}">{{ blog.author }}</a></p>
+      <p><strong>Description:</strong></p><br>
+        <p>{{ blog.content }}</p>
+
+      <div style="margin-left:20px;margin-top:20px;">
+        <h4>Comments</h4>
+            {% for comment in blog.comment_set.all %}
+                <hr>
+                <p>{{ comment.author }} ({{ comment.post_date }})- {{ comment.content }}</p>
+            {% endfor %}
+        <hr>
+           {% if user.is_authenticated %}
+               <a href="{% url 'create-comment' blog.pk %}"> Add Comment</a>
+          {% else %}
+               <div style="display: flex">
+                    <a href="{% url 'login'%}?next={% url 'create-comment' blog.pk %}">Login</a>
+                    <p style="margin-left: 10px; margin-right: 10px;"> or </p>
+                    <a href="{% url 'create-blogger'%}?next={{request.path}}">Create account</a>
+                    <p style="margin-left: 10px;"> to add new comment</p>
+               </div>
+          {% endif %}
+      </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: row; align-items: center">
+
+        <h1>All bloggers</h1>
+
+    </div>
+
+    {% if blogger_list %}
+        <ul>
+            {% for blogger in blogger_list %}
+                {% if blogger.blog_set.all %}
+                    <li>
+                        <a href="{{ blogger.get_absolute_url }}">{{ blogger.user.username }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no bloggers in list.</p>
+    {% endif %}
+{% endblock %}

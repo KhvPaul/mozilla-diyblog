@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>BlogSite</title>
+{% endblock %}
+{% block content %}
+<h1>BlogSite</h1>
+    <p>Welcome to <em>BlogSite</em>, a very basic Django website developed as a homework on the Mozilla Developer Network.</p>
+
+    <h2>Dynamic content</h2>
+
+    <p>The application has the following record counts:</p>
+    <ul>
+        <li><strong>Blogs:</strong> {{ num_blogs }}</li>
+        <li><strong>Authors:</strong> {{ num_authors }}</li>
+
+    </ul>
+
+<p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+
+{% endblock %}
