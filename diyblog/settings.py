@@ -127,10 +127,18 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 if not DEBUG:
-    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-    # Heroku: Update database configuration from $DATABASE_URL.
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)
+
     # Simplified static file serving.
     # https://warehouse.python.org/project/whitenoise/
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# if not DEBUG:
+#     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#     # Heroku: Update database configuration from $DATABASE_URL.
+#     db_from_env = dj_database_url.config()
+#     DATABASES['default'].update(db_from_env)
+#     # Simplified static file serving.
+#     # https://warehouse.python.org/project/whitenoise/
+#     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
