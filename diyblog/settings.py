@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-=jhm2g(4t$3zq4f-i7(ltdvsxq57tddq!*y*6h@%zs3hh)d$*7'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-=jhm2g(4t$3zq4f-i7(ltdvsxq57tddq!*y*6h@%zs3hh)d$*7')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = ['frozen-wildwood-71522.herokuapp.com', '127.0.0.1']
 
@@ -126,10 +126,11 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# Heroku: Update database configuration from $DATABASE_URL.
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if not DEBUG:
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    # Heroku: Update database configuration from $DATABASE_URL.
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
