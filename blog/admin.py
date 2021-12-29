@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blog, Blogger, Comment
+from .models import Blog, Blogger, Comment, LogRequest
 
 
 @admin.register(Blogger)
@@ -16,3 +16,8 @@ class BlogAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['author', 'blog', 'content', 'post_date']
+
+
+@admin.register(LogRequest)
+class LoginRequestAdmin(admin.ModelAdmin):
+    list_display = ['user', 'path', 'method', 'timestamp']

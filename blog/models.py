@@ -47,3 +47,13 @@ class Comment(models.Model):
 
     def get_date(self):
         return f'{self.post_date.strftime("%b")} {self.post_date.day}, {self.post_date.year}'
+
+
+class LogRequest(models.Model):
+    path = models.FilePathField(max_length=100, help_text='PATH')
+    method = models.CharField(max_length=4, help_text='METHOD')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.method} {self.path}'
