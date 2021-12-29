@@ -12,7 +12,10 @@ from .forms import AddCommentModelForm, CreateBloggerForm
 
 def index(request):
     num_blogs = Blog.objects.count()
-    num_authors = Blogger.objects.count()
+    num_authors = 0
+    for author in Blogger.objects.all():
+        num_authors += 1 if author.blog_set.all() else 0
+    num_users = User.objects.all().count()
     # Number of visits to this view, as counted in the session variable.
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
@@ -21,7 +24,7 @@ def index(request):
         request,
         'index.html',
         context={'num_blogs': num_blogs, 'num_authors': num_authors,
-                 'num_visits': num_visits},
+                 'num_users': num_users, 'num_visits': num_visits},
     )
 
 
