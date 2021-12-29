@@ -17,7 +17,7 @@
     </ul>
 
 <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
-    {% if num_visits == 0 %}
+    {% if num_visits >= 0 and num_visits <= 4 %}
     <script>
         setTimeout(() => {
             alert('Чтобы зайти в админку \n login: admin \n password: admin')
