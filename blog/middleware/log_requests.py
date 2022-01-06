@@ -16,7 +16,8 @@ class LogMiddleware(object):
         response = self.get_response(request)
         return response
 
-    def process_view(self, request, view_func, view_args, view_kwargs):
+    @staticmethod
+    def process_view(request, view_func, view_args, view_kwargs):
         if not request.path.startswith('/admin/'):
             if request.user.is_authenticated:
                 LogRequest.objects.create(path=request.path, method=request.method, user=request.user)
